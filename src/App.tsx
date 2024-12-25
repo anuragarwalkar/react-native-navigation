@@ -1,30 +1,18 @@
-import { Assets as NavigationAssets } from '@react-navigation/elements';
-import { Asset } from 'expo-asset';
-import * as SplashScreen from 'expo-splash-screen';
-import * as React from 'react';
-import { Navigation } from './navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Home } from './screens/Home';
+import { Profile } from './screens/Profile';
+import { Settings } from './screens/Settings';
 
-Asset.loadAsync([
-  ...NavigationAssets,
-  require('./assets/newspaper.png'),
-  require('./assets/bell.png'),
-]);
-
-SplashScreen.preventAutoHideAsync();
+const Stack = createNativeStackNavigator();
 
 export function App() {
   return (
-    <Navigation
-      linking={{
-        enabled: 'auto',
-        prefixes: [
-          // Change the scheme to match your app's scheme defined in app.json
-          'helloworld://',
-        ],
-      }}
-      onReady={() => {
-        SplashScreen.hideAsync();
-      }}
-    />
+   <NavigationContainer>
+    <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Settings" component={Settings} />
+      </Stack.Navigator>
+   </NavigationContainer>
   );
 }
